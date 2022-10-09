@@ -84,17 +84,17 @@
 
 
 
-<meta name="description" content="xiexie       @keyframes xiexie {         0%{             opacity: 1;             transform: scale(0.1);         }         50%{             opacity: 1;             transform: scal">
+<meta name="description" content="xiexie       div {         width: 30px;         height: 30px;         background-color: red;         transform: rotate(-45deg);         position: fixed;     }          div:before">
 <meta property="og:type" content="website">
 <meta property="og:title" content="菜菜鸟">
 <meta property="og:url" content="http://yoursite.com/xiexie.html">
 <meta property="og:site_name" content="菜菜鸟">
-<meta property="og:description" content="xiexie       @keyframes xiexie {         0%{             opacity: 1;             transform: scale(0.1);         }         50%{             opacity: 1;             transform: scal">
+<meta property="og:description" content="xiexie       div {         width: 30px;         height: 30px;         background-color: red;         transform: rotate(-45deg);         position: fixed;     }          div:before">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-10-09T07:03:43.014Z">
+<meta property="og:updated_time" content="2022-10-09T07:44:09.422Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="菜菜鸟">
-<meta name="twitter:description" content="xiexie       @keyframes xiexie {         0%{             opacity: 1;             transform: scale(0.1);         }         50%{             opacity: 1;             transform: scal">
+<meta name="twitter:description" content="xiexie       div {         width: 30px;         height: 30px;         background-color: red;         transform: rotate(-45deg);         position: fixed;     }          div:before">
 
 
 
@@ -263,39 +263,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>xiexie</title>
 </head>
-<style type="text/css">
-    @keyframes xiexie {
-        0%{
-            opacity: 1;
-            transform: scale(0.1);
-        }
-        50%{
-            opacity: 1;
-            transform: scale(1.5);
-        }
-        100% {
-            opacity: 0;
-            transform: scale(1);
-        }
+<style>
+    div {
+        width: 30px;
+        height: 30px;
+        background-color: red;
+        transform: rotate(-45deg);
+        position: fixed;
     }
-    *{
-        padding: 0;
-        margin: 0;
-        border: 0;
-        overflow: hidden;
+    
+    div:before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: red;
+
     }
-    span{
-        white-space: nowrap;
-        animation: xiexie linear 2s forwards;
+    
+    div:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -15px;
+        width: 30px;
+        height: 30px;
+        background-color: red;
+        border-radius: 50%;
     }
 </style>
 <body>
-    
 </body>
 <script type="text/javascript">
     window.addEventListener('click', function(e){
         let dom = document.createElement('div');
-        dom.innerHTML= `<span style="position: fixed; top: ${e.clientY}px; left: ${e.clientX}px; color: rgb(${Math.random()* 255}, ${Math.random()* 255}, ${Math.random()* 255})">I Love You Forever, Ms. Xie</span>`
+        dom.style.top = `${e.clientY}px`
+        dom.style.left = `${e.clientX}px`
         document.body.appendChild(dom)
     })
 </script>
