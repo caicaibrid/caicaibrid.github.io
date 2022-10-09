@@ -7,18 +7,25 @@
     <title>xiexie</title>
 </head>
 <style>
+    body, html {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        user-select: none;
+        overflow: hidden;
+    }
     @keyframes xiexie {
         0%{
-            opacity: 0;
-            transform: rotate(-45deg) scale(0.1);
+            opacity: 0.5;
+            transform: rotate(-45deg) scale(0.5);
         }
         50%{
             opacity: 1;
             transform: rotate(-45deg) scale(1);
         }
         100%{
-            pacity: 0;
-            transform: rotate(-45deg) scale(0.1);
+            opacity: 0.5;
+            transform: rotate(-45deg) scale(0.5);
         }
     }
     div {
@@ -27,7 +34,7 @@
         background-color: red;
         transform: rotate(-45deg);
         position: fixed;
-        animation: xiexie 2s linear infinite;
+        animation: xiexie 3s linear infinite;
     }
     
     div:before {
@@ -56,12 +63,29 @@
 <body>
 </body>
 <script type="text/javascript">
-    window.addEventListener('click', function(e){
-        let dom = document.createElement('div');
-        dom.style.top = `${e.clientY}px`
-        dom.style.left = `${e.clientX}px`
-        document.body.appendChild(dom)
-    })
+    // window.addEventListener('click', function(e){
+    //     let dom = document.createElement('div');
+    //     dom.style.top = `${e.clientY}px`
+    //     dom.style.left = `${e.clientX}px`
+    //     document.body.appendChild(dom)
+    // })
+    let width = document.body.clientWidth;
+    let height = document.body.clientHeight;
+
+    let rowCount = Math.floor(width / 60); // 总共的列数
+    let colCount = Math.floor(height / 60); // 总共的行数
+
+    console.log(width, height, rowCount, colCount)
+
+    for (let i = 0; i<= rowCount; i ++){
+        for (let j = 0; j<= colCount; j++){
+            let dom = document.createElement('div');
+            dom.style.top = `${ j * 60 }px`
+            dom.style.left = `${ i * 60 }px`
+            document.body.appendChild(dom)
+        }
+    }
+    
 </script>
 
 </html>
