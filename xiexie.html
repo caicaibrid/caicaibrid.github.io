@@ -7,12 +7,27 @@
     <title>xiexie</title>
 </head>
 <style>
+    @keyframes xiexie {
+        0%{
+            opacity: 0;
+            transform: rotate(-45deg) scale(0.1);
+        }
+        50%{
+            opacity: 1;
+            transform: rotate(-45deg) scale(1);
+        }
+        100%{
+            pacity: 0;
+            transform: rotate(-45deg) scale(0.1);
+        }
+    }
     div {
         width: 30px;
         height: 30px;
         background-color: red;
         transform: rotate(-45deg);
         position: fixed;
+        animation: xiexie 2s linear infinite;
     }
     
     div:before {
