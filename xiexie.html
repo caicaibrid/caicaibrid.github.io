@@ -17,28 +17,27 @@
     @keyframes xiexie {
         0%{
             opacity: 0.5;
-            transform: rotate(-45deg) scale(0.5);
+            transform: rotate(-45deg) scale(0.1);
         }
         50%{
             opacity: 1;
-            transform: rotate(-45deg) scale(1);
+            transform: rotate(-45deg) scale(0.5);
         }
         100%{
             opacity: 0.5;
-            transform: rotate(-45deg) scale(0.5);
+            transform: rotate(-45deg) scale(0.1);
         }
     }
     .heart {
         width: 30px;
         height: 30px;
-        background-color: red;
+        background: red;
         transform: rotate(-45deg);
         position: fixed;
-        animation: xiexie 3s linear infinite;
+        animation: xiexie 5s linear infinite;
     }
     
-    .heart:before {
-        content: "";
+    .heart_before {
         position: absolute;
         left: 15px;
         top: 0;
@@ -48,8 +47,7 @@
         background-color: red;
 
     }
-    .heart:after {
-        content: "";
+    .heart_after {
         position: absolute;
         left: 0;
         top: -15px;
@@ -70,7 +68,8 @@
         left: 50%;
         margin-top: -150px;
         margin-left: -150px;
-        animation: xiexie 3s linear infinite;
+        animation: xiexie 5s linear infinite;
+        z-index: 10;
     }
     
     #box:before {
@@ -82,7 +81,7 @@
         height: 300px;
         border-radius: 50%;
         background-color: red;
-
+        z-index: 10;
     }
     #box:after {
         content: "";
@@ -93,6 +92,7 @@
         height: 300px;
         background-color: red;
         border-radius: 50%;
+        z-index: 10;
     }
     
 </style>
@@ -112,10 +112,27 @@
     let rowCount = Math.floor(width / 60); // 总共的列数
     let colCount = Math.floor(height / 60); // 总共的行数
 
+    
+
     for (let i = 0; i<= rowCount; i ++){
         for (let j = 0; j<= colCount; j++){
+            let bgColor = `rgb(${Math.ceil(Math.random() * 255)}, ${Math.ceil(Math.random() * 255)}, ${Math.ceil(Math.random() * 255)})`
+
             let dom = document.createElement('div');
+            let dom_before = document.createElement('div')
+            let dom_after = document.createElement('div')
+
             dom.className = 'heart'
+            dom_before.className = 'heart_before'
+            dom_after.className = 'heart_after'
+
+            dom.style.backgroundColor = bgColor
+            dom_before.style.backgroundColor = bgColor
+            dom_after.style.backgroundColor = bgColor
+            
+            dom.appendChild(dom_before)
+            dom.appendChild(dom_after)
+
             dom.style.top = `${ j * 60 }px`
             dom.style.left = `${ i * 60 }px`
             document.body.appendChild(dom)
