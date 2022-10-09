@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,27 +8,32 @@
     <title>xiexie</title>
 </head>
 <style>
-    body, html {
+    body,
+    html {
         width: 100%;
         height: 100%;
         background: #000;
         user-select: none;
         overflow: hidden;
     }
+
     @keyframes xiexie {
-        0%{
+        0% {
             opacity: 0.5;
             transform: rotate(-45deg) scale(0.1);
         }
-        50%{
+
+        50% {
             opacity: 1;
             transform: rotate(-45deg) scale(0.5);
         }
-        100%{
+
+        100% {
             opacity: 0.5;
             transform: rotate(-45deg) scale(0.1);
         }
     }
+
     .heart {
         width: 30px;
         height: 30px;
@@ -36,7 +42,7 @@
         position: fixed;
         animation: xiexie 5s linear infinite;
     }
-    
+
     .heart_before {
         position: absolute;
         left: 15px;
@@ -47,6 +53,7 @@
         background-color: red;
 
     }
+
     .heart_after {
         position: absolute;
         left: 0;
@@ -56,7 +63,7 @@
         background-color: red;
         border-radius: 50%;
     }
-    
+
 
     #box {
         width: 300px;
@@ -71,7 +78,7 @@
         animation: xiexie 5s linear infinite;
         z-index: 10;
     }
-    
+
     #box:before {
         content: "";
         position: absolute;
@@ -83,6 +90,7 @@
         background-color: red;
         z-index: 10;
     }
+
     #box:after {
         content: "";
         position: absolute;
@@ -94,7 +102,8 @@
         border-radius: 50%;
         z-index: 10;
     }
-    p{
+
+    p {
         position: absolute;
         left: 0;
         right: 0;
@@ -104,53 +113,88 @@
         color: #fff;
         font-size: 32px;
     }
-    
 </style>
+
 <body>
     <div id="box">
         <p>谢谢，我爱你！</p>
     </div>
 </body>
 <script type="text/javascript">
-    // window.addEventListener('click', function(e){
-    //     let dom = document.createElement('div');
-    //     dom.style.top = `${e.clientY}px`
-    //     dom.style.left = `${e.clientX}px`
-    //     document.body.appendChild(dom)
-    // })
     let width = document.body.clientWidth;
     let height = document.body.clientHeight;
 
-    let rowCount = Math.floor(width / 60); // 总共的列数
-    let colCount = Math.floor(height / 60); // 总共的行数
+    let rowCount = Math.floor(width / 60);
+    let colCount = Math.floor(height / 60);
 
-    
+    let heartCount = (rowCount + 1) * (colCount + 1)
 
-    for (let i = 0; i<= rowCount; i ++){
-        for (let j = 0; j<= colCount; j++){
-            let bgColor = `rgb(${Math.ceil(Math.random() * 255)}, ${Math.ceil(Math.random() * 255)}, ${Math.ceil(Math.random() * 255)})`
+    let randomColor = new Array(Math.floor(heartCount / 2)).fill('').map(() => `rgb(${Math.ceil(Math.random() * 255)}, ${Math.ceil(Math.random() * 255)}, ${Math.ceil(Math.random() * 255)})`);
 
-            let dom = document.createElement('div');
-            let dom_before = document.createElement('div')
-            let dom_after = document.createElement('div')
+    let heart = [];
 
-            dom.className = 'heart'
-            dom_before.className = 'heart_before'
-            dom_after.className = 'heart_after'
+    for (let i = 0; i < randomColor.length; i++) {
+        let dom = document.createElement('div');
+        let dom_before = document.createElement('div')
+        let dom_after = document.createElement('div')
 
-            dom.style.backgroundColor = bgColor
-            dom_before.style.backgroundColor = bgColor
-            dom_after.style.backgroundColor = bgColor
-            
-            dom.appendChild(dom_before)
-            dom.appendChild(dom_after)
+        dom.className = 'heart'
+        dom_before.className = 'heart_before'
+        dom_after.className = 'heart_after'
 
-            dom.style.top = `${ j * 60 }px`
-            dom.style.left = `${ i * 60 }px`
-            document.body.appendChild(dom)
+        dom.style.backgroundColor = randomColor[i]
+        dom_before.style.backgroundColor = randomColor[i]
+        dom_after.style.backgroundColor = randomColor[i]
+
+        dom.appendChild(dom_before)
+        dom.appendChild(dom_after)
+
+        heart.push(dom)
+        heart.unshift(dom.cloneNode(true))
+
+        if (heartCount % 2 === 1 && i + 1 === randomColor.length) {
+            dom.style.backgroundColor = 'rgb(255, 255, 255)'
+            dom_before.style.backgroundColor = 'rgb(255, 255, 255)'
+            dom_after.style.backgroundColor = 'rgb(255, 255, 255)'
+            heart.push(dom)
         }
     }
-    
+
+    heart.sort(() => Math.random() - Math.random())
+
+    let count = 0;
+
+    for (let i = 0; i <= rowCount; i++) {
+        for (let j = 0; j <= colCount; j++) {
+            heart[count].setAttribute('count', count)
+            heart[count].style.top = `${j * 60}px`
+            heart[count].style.left = `${i * 60}px`
+            document.body.appendChild(heart[count].cloneNode(true))
+            count++
+        }
+    }
+
+    let preColor = '', preCount = '';
+    window.addEventListener('click', function(e){
+        let count = e.target.getAttribute('count') || e.target.parentNode.getAttribute('count')
+        let bgColor =  e.target.style.backgroundColor
+        if (preColor){
+            console.log(preColor, bgColor, count, preCount)
+            if (preColor === bgColor && count !== preCount){
+                alert('消消乐')
+                document.querySelector(`.heart[count='${count}']`).remove()
+                document.querySelector(`.heart[count='${preCount}']`).remove()
+                return
+            }
+            alert('两次点击不相同')
+            preColor = '';
+            preCount = '';
+            return
+        }
+        preCount = count
+        preColor = bgColor
+    }, false)
+
 </script>
 
 </html>
