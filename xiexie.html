@@ -28,7 +28,7 @@
             transform: rotate(-45deg) scale(0.5);
         }
     }
-    div {
+    .heart {
         width: 30px;
         height: 30px;
         background-color: red;
@@ -37,7 +37,7 @@
         animation: xiexie 3s linear infinite;
     }
     
-    div:before {
+    .heart:before {
         content: "";
         position: absolute;
         left: 15px;
@@ -48,8 +48,7 @@
         background-color: red;
 
     }
-    
-    div:after {
+    .heart:after {
         content: "";
         position: absolute;
         left: 0;
@@ -59,8 +58,46 @@
         background-color: red;
         border-radius: 50%;
     }
+    
+
+    #box {
+        width: 300px;
+        height: 300px;
+        background-color: red;
+        transform: rotate(-45deg);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin-top: -150px;
+        margin-left: -150px;
+        animation: xiexie 3s linear infinite;
+    }
+    
+    #box:before {
+        content: "";
+        position: absolute;
+        left: 150px;
+        top: 0;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background-color: red;
+
+    }
+    #box:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -150px;
+        width: 300px;
+        height: 300px;
+        background-color: red;
+        border-radius: 50%;
+    }
+    
 </style>
 <body>
+    <div id="box"></div>
 </body>
 <script type="text/javascript">
     // window.addEventListener('click', function(e){
@@ -75,11 +112,10 @@
     let rowCount = Math.floor(width / 60); // 总共的列数
     let colCount = Math.floor(height / 60); // 总共的行数
 
-    console.log(width, height, rowCount, colCount)
-
     for (let i = 0; i<= rowCount; i ++){
         for (let j = 0; j<= colCount; j++){
             let dom = document.createElement('div');
+            dom.className = 'heart'
             dom.style.top = `${ j * 60 }px`
             dom.style.left = `${ i * 60 }px`
             document.body.appendChild(dom)
