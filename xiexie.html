@@ -182,6 +182,8 @@
             console.log(preColor, bgColor, count, preCount)
             if (preColor === bgColor && count !== preCount){
                 alert('消消乐')
+                preColor = '';
+                preCount = '';
                 document.querySelector(`.heart[count='${count}']`).remove()
                 document.querySelector(`.heart[count='${preCount}']`).remove()
                 return
